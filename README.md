@@ -1,12 +1,2 @@
-# Machine learning model
-Building a machine learning model!
-
-## Tools
-Integrated Development Evironment: Visual Studio Code
-
-Language: Python and SQL
-
-Model
-
-## Stages
-
+Basically querying the database with PostgreSQL
+dvdrentals sample database: https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/
