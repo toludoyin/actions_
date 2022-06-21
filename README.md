@@ -1,5 +1,5 @@
-Basically querying the database with PostgreSQL
+Querying the database with PostgreSQL using window functions and analytics function
 
-dvdrentals sample database: 
+sample database dvdrentals: 
 
 https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/
