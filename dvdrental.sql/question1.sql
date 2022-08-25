@@ -4,6 +4,7 @@ Investigate the relationship between staff and film actors.
 Show the top 5 actors each staff rented out most often.
 **/
 
+
 	with film_actors as (
     select
     actor_id,
