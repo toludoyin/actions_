@@ -1,4 +1,7 @@
 
+-- BONUS QUESTIONS
+-- Join All The Things
+
 CREATE SCHEMA dannys_diner;
 SET search_path = dannys_diner;
 
@@ -31,3 +34,20 @@ VALUES
 
 
 select * from dannys_diner.sales
+
+
+-- Rank All The Things
+with rank_all as (
+    select *,
+    case when (member = 'Y') then rank() over(partition by customer_id order by order_date, member) else null end as ranks
+    from dannys_diner.sales
+)
+select
+customer_id,
+order_date,
+product_name,
+price,
+member,
+case when (ranks is not null) then rank() over(partition by customer_id order by ranks) else null end as ranking
+from rank_all
+order by customer_id, order_date
