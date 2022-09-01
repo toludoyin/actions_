@@ -18,5 +18,30 @@ BONUS QUESTIONS
 2. rank all the things
 */
 
-select * from dannys_diner
+--ANSWERS TO QUESTIONS
+select
+distinct s.customer_id,
+sum(m.price) as total_amount,      --QUESTION 1
+count(distinct s.order_date) as num_of_visit_days   --QUESTION 2
+from dannys_diner.sales s
+join dannys_diner.menu m using(product_id)
+group by 1
+
+-- QUESTION 3
+select * from
+(
+    select
+    order_date,
+    customer_id,
+    product_name,
+    row_number() over(partition by customer_id order by order_date) as row_num
+    from dannys_diner.sales s
+    join dannys_diner.menu m using(product_id)
+    order by order_date, customer_id
+) as first_order
+where row_num = 1
+
+-- QUESTION 4
+
+
 
