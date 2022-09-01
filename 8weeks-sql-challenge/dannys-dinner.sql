@@ -18,7 +18,7 @@ BONUS QUESTIONS
 2. rank all the things
 */
 
---ANSWERS TO QUESTIONS
+-- ANSWERS TO QUESTIONS
 select
 distinct s.customer_id,
 sum(m.price) as total_amount,      --QUESTION 1
@@ -26,6 +26,7 @@ count(distinct s.order_date) as num_of_visit_days   --QUESTION 2
 from dannys_diner.sales s
 join dannys_diner.menu m using(product_id)
 group by 1
+
 
 -- QUESTION 3
 select * from
@@ -41,7 +42,97 @@ select * from
 ) as first_order
 where row_num = 1
 
+
 -- QUESTION 4
+select
+m.product_name,
+sum(m.price) as total_price,
+count(*) as num_of_times_purchase
+from dannys_diner.sales s
+join dannys_diner.menu m using(product_id)
+group by 1
+order by 2 desc
+limit 1
+
+
+-- QUESTION 5
+select * from
+(
+    select
+    customer_id,
+    product_name,
+    count(product_name) as num_of_times_product_ordered,
+    row_number() over(partition by customer_id order by count(product_name) desc) as row_num
+    from dannys_diner.sales s
+    join dannys_diner.menu m using(product_id)
+    group by 1,2
+    order by 1
+) as popular
+where row_num = 1
+
+
+-- QUESTION 6
+select * from
+(
+    select
+    customer_id,
+    product_name,
+    join_date,
+    s.order_date,
+    count(product_name) as num_of_times_product_ordered,
+    row_number() over(partition by customer_id order by order_date) as row_num
+    from dannys_diner.sales s
+    join dannys_diner.menu m using(product_id)
+    left join  dannys_diner.members me using(customer_id)
+    where me.join_date < s.order_date
+    group by 1, 2, 3, 4
+    order by 1
+) as popular
+where row_num = 1
+
+
+-- QUESTION 7
+select * from
+(
+    select
+    customer_id,
+    product_name,join_date, s.order_date,
+    count(product_name) as num_of_times_product_ordered,
+    row_number() over(partition by customer_id order by order_date desc) as row_num
+    from dannys_diner.sales s
+    join dannys_diner.menu m using(product_id)
+    left join  dannys_diner.members me using(customer_id)
+    where me.join_date > s.order_date
+    group by 1,2,3,4
+    order by 1
+) as popular
+where row_num = 1
+
+
+-- QUESTION 8
+select
+customer_id,
+count(product_id) as num_of_items,
+sum(m.price) as total_amount
+from dannys_diner.sales s
+join dannys_diner.menu m using(product_id)
+left join  dannys_diner.members me using(customer_id)
+where me.join_date > s.order_date
+group by 1
+order by 1
+
+-- QUESTION 9
+
+
+-- QUESTION 10
+
+
+
+
+
+
+
+
 
 
 
