@@ -57,6 +57,61 @@ order by 1
 
 
 -- A. 5
+select
+customer_id,
+coalesce(count(case when pizza_name='Meatlovers' then order_id end),0) as Meatlovers,
+coalesce(count(case when pizza_name='Vegetarian' then order_id end),0) as Vegetarian
+from pizza_runner.runner_orders ro
+join pizza_runner.customer_orders co using(order_id)
+left join pizza_runner.pizza_names pn on co.pizza_id = pn.pizza_id
+group by 1
+order by 1
+
+
+--A. 6
+select order_id,
+count(pizza_id) as num_of_pizzas_delivered
+from pizza_runner.customer_orders
+group by 1
+order by 2 desc
+
+
+-- A. 7
+with cleaned_change_data as (
+    select *,
+    case when exclusions in ('null', '') or exclusions is null then '0'
+    else exclusions end as exclusion,
+    case when extras in ('null', '') or extras is null then '0'
+    else extras end as extra
+    from pizza_runner.customer_orders
+    where order_id in
+    (
+        select distinct order_id
+        from (
+            select *,
+            case when Cancellation is null
+            or Cancellation in('null', '') then 0 else 1 end as cancellation2
+            from pizza_runner.runner_orders
+            ) as successful_pizza
+        where cancellation2 = 0
+    )
+),
+new_change_col as (
+    select *,
+    case when exclusion = '0' and extra = '0' then 0 else 1 end as change
+    from cleaned_change_data
+    order by 1
+)
+select
+customer_id,
+count(order_id) filter (where change::int =0) as pizza_no_changes,
+count(order_id) filter (where change::int > 0) as pizza_changes
+from new_change_col
+group by 1
+
+
+
+
 
 
 
