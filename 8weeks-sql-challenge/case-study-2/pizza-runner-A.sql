@@ -76,8 +76,8 @@ group by 1
 order by 2 desc
 
 
--- A. 7
-with cleaned_change_data as (
+-- A. 7 and 8
+with cleaned_data as (
     select *,
     case when exclusions in ('null', '') or exclusions is null then '0'
     else exclusions end as exclusion,
@@ -86,29 +86,46 @@ with cleaned_change_data as (
     from pizza_runner.customer_orders
     where order_id in
     (
-        select distinct order_id
-        from (
+        select distinct order_id from
+        (
             select *,
             case when Cancellation is null
             or Cancellation in('null', '') then 0 else 1 end as cancellation2
             from pizza_runner.runner_orders
-            ) as successful_pizza
+        ) as successful_pizza
         where cancellation2 = 0
     )
 ),
-new_change_col as (
+create_change_col as (
     select *,
     case when exclusion = '0' and extra = '0' then 0 else 1 end as change
-    from cleaned_change_data
+    from cleaned_data
+),
+made_changes as (
+    select
+    customer_id,
+    count(order_id) filter (where change::int = 0) as pizza_no_changes,
+    count(order_id) filter (where change::int > 0) as pizza_changes
+    from create_change_col
+    group by 1
     order by 1
-)
-select
-customer_id,
-count(order_id) filter (where change::int =0) as pizza_no_changes,
-count(order_id) filter (where change::int > 0) as pizza_changes
-from new_change_col
-group by 1
+),                     --A. 7
+made_both_change as (
+    select customer_id,
+    count(order_id) filter (where exclu_change::int > 0 and extra_change::int > 0) as exclusion_extra
+    from (
+        select *,
+        case when exclusion = '0' then 0 else 1 end as exclu_change,
+        case when extra = '0' then 0 else 1 end as extra_change
+        from create_change_col
+        ) as made_both_changes
+    group by 1
+    order by 1
+)                 --A. 8
 
+select *
+-- from made_changes       -- A. 7
+from made_both_change      -- A. 8
 
 
 
