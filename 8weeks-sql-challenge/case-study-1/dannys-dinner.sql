@@ -162,12 +162,3 @@ from (
     where extract(month from order_week) = 01
 ) as stop
 group by 1
-
-
-
-
-
-
-
-
-

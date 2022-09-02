@@ -142,10 +142,3 @@ to_char(order_time, 'Day') as day_of_week,
 count(order_id) as num_of_order
 from pizza_runner.customer_orders
 group by 1
-
-
-
-
-
-
-
