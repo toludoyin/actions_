@@ -2,9 +2,9 @@
 
 Querying the database with PostgreSQL to solve businesss problems using advance functions (window and analytics function)
 
-## Sample data source used for dvdrentals:
+## Dvdrentals
 
-https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/
+data source: https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/
 
 
 ## The 8 Weeks SQL challenge database
