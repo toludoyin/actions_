@@ -76,7 +76,7 @@ group by 1
 order by 2 desc
 
 
--- A. 7 and 8
+-- A. 7 and A. 8
 with cleaned_data as (
     select *,
     case when exclusions in ('null', '') or exclusions is null then '0'
@@ -122,10 +122,26 @@ made_both_change as (
     group by 1
     order by 1
 )                 --A. 8
-
 select *
 -- from made_changes       -- A. 7
 from made_both_change      -- A. 8
+
+
+-- A. 9
+select
+extract(hour from order_time) as hours,
+count(order_id) as num_of_order
+from pizza_runner.customer_orders
+group by 1
+
+
+-- A. 10
+select
+to_char(order_time, 'Day') as day_of_week,
+-- date_trunc('week', order_time) as weeks,
+count(order_id) as num_of_order
+from pizza_runner.customer_orders
+group by 1
 
 
 
