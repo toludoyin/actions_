@@ -143,8 +143,8 @@ with earnings as (
     select
     customer_id,
     s.product_id,
-    date_trunc('week', s.order_date) as order_week,
-    date_trunc('week', m.join_date) as join_week
+    s.order_date,
+    m.join_date
     from dannys_diner.sales s
     join dannys_diner.members m using(customer_id)
     where m.join_date <= s.order_date
@@ -154,11 +154,13 @@ customer_id,
 sum(total_point) as total_point
 from (
     select
-    ea.*,
-    price,
-    (price * 20) as total_point
+    customer_id,
+    product_id,
+    sum(case when order_date < join_date + interval '7 day' then price * 20 else price*10 end) as total_point
     from earnings ea
     join dannys_diner.menu me using(product_id)
-    where extract(month from order_week) = 01
+    where extract(month from order_date) = 01
+    group by 1,2
 ) as stop
 group by 1
+
