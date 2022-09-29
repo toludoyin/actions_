@@ -34,7 +34,3 @@ nth_value(dat,5) over(order by customer_id)  --fill the 5th value from dat colum
 from init
 group by 1,2,dat
 order by 1
-
-
-
-
