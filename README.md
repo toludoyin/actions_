@@ -1,7 +1,7 @@
 # SQL Queries
 This repo containS SQL functions and syntax.
 ## Dvdrentals
-Dvdrentals (data source)[https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/]
+Dvdrentals [data source](https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/)
 
 ### Importing Dvdrentals to Postgres
 * Download xlsx file
