@@ -1,10 +1,7 @@
-
 select
-customer_id,
-dat,
-sum(amount) as total_amount
-grouping(customer_id) as g1,  --grouping function shows the grouped row
-grouping(dat) as g3
+    customer_id, dat, sum(amount) as total_amount
+    grouping(customer_id) as g1,  --grouping function shows the grouped row
+    grouping(dat) as g3
 into temporary_table
 from payment
 where customer_id in (1,2,3)
