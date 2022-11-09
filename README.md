@@ -3,7 +3,7 @@ This repo contains SQL functions and syntax.
 ## Dvdrentals
 Dvdrentals [data source](https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/)
 
-### Importing Dvdrentals to Postgres
+### Importing Dvdrentals dataset to Postgres
 * Download xlsx file
 * Convert to a csv file
 * On PGAdmin, create a new database in server
