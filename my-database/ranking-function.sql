@@ -1,9 +1,7 @@
-/*
-rank() function
-dense_rank()
-row_number() each row gets its unique rank
-ntile() distribute the row into x number of group
-*/
+-- rank() function
+-- dense_rank()
+-- row_number() each row gets its unique rank
+-- ntile() distribute the row into x number of group
 
 with ranking as (
 select
@@ -18,8 +16,4 @@ order by 1
 )
 select * from ranking
 where row_number =1
-offset 20   --skip first 20 rows
-
-
-
-
+offset 20;  --skip first 20 rows
