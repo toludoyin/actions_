@@ -67,7 +67,7 @@ row_summary_stat as (
 )
 select *
 from row_summary_stat
-order by no
+order by no;
 
 
 -------------------------------------------------
@@ -77,4 +77,4 @@ order by no
 -- MODE
 select
 mode() within group (order by title) as mode
-from film
+from film;
