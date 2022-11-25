@@ -1,4 +1,3 @@
-
 -- analytics function:(lags, lead, first_value, last_value)
 
 with starts as (
