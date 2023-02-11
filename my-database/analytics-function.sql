@@ -1,5 +1,6 @@
 -- analytics function:(lags, lead, first_value, last_value)
 
+create view temp_table as -- save result
 with starts as (
 select * from payment
 left join customer using(customer_id)
@@ -22,3 +23,5 @@ select
 from init
 group by 1,2,dat
 order by 1
+
+select * from temp_table
