@@ -27,5 +27,12 @@ PROBABILITY
 * binomial distribution
 
 * normal distribution: skweness, kurtosis
+* poisson distribution
+
+* hypothesis testing
+* a/b testing
+
+*** correlation not equals causation ***
+confounding variables
 **/
 
