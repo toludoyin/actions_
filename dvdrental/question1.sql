@@ -1,7 +1,6 @@
 /**
 Question 1.
-Investigate the relationship between staff and film actors.
-Show the top 5 actors each staff rented out most often.
+Investigate the relationship between staff and film actors. Show the top 5 actors each staff rented out most often.
 **/
 
 
@@ -36,7 +35,7 @@ Show the top 5 actors each staff rented out most often.
     count(staff_id) as actors_rented_out_most_often
     from film_actors
     join staff_data using (film_id)
-    where staff_id = 1
+    where staff_id = 1  -- change staff_id
     group by 1,2,staff_id
     order by 3 desc
     limit 5
