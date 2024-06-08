@@ -1,7 +1,0 @@
-primary keys: unique key, no null values
-
-foreign key: value that exits in the reference column, or null
-
-unique keys: this uniquely identify database record e.g(phone number, emails)
-
-store procedure: is a prepared sql query that can be save, so that the query is repeatedly reuse.
